@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 class Checkweigher:
 
-    def __init__(self, host, port, retry_attempts=5, config_file='./configs/checkweigher.yaml'):
+    def __init__(self, host, port, retry_attempts=5, config_file='{}/configs/checkweigher.yaml'.format(os.path.join(os.path.dirname(__file__)))):
 
         self.host = host
         self.port = port

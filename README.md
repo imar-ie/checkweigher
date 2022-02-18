@@ -87,7 +87,7 @@ python checkweigher.py 192.168.1.123 -p 1234 -c AS
 ### Module
 
 ```python
-from checkweigher import Checkweigher
+from checkweigher.checkweigher import Checkweigher
 
 cw = Checkweigher('127.0.0.1', 1234)
 
