@@ -1,0 +1,198 @@
+dataFields:
+    1:
+      - name: Network node number
+        type: 'INT'
+        size: 3
+      - name: Program number
+        type: 'INT'
+        size: 2
+      - name: Program Name
+        type: 'INT'
+        size: 20
+      - name: Mode
+        type: 'INT'
+        size: 1
+      - name: Target weight
+        type: 'Float'
+        size: 5
+      - name: Hi-Hi limit
+        type: 'Float'
+        size: 4
+      - name: High limit
+        type: 'Float'
+        size: 5
+      - name: Low limit
+        type: 'Float'
+        size: 4
+      - name: Lo-Lo
+        type: 'Float'
+        size: 4
+      - name: Tare Weight
+        type: 'Float'
+        size: 5
+      - name: Daynamic comp
+        type: 'Float'
+        size: 5
+      - name: Limit2
+        type: 'Float'
+        size: 5
+      - name: Limit3
+        type: 'Float'
+        size: 5
+      - name: T1-T2%
+        type: 'Float'
+        size: 5
+      - name: Hi-Hi number
+        type: 'INT'
+        size: 6
+      - name: Over number
+        type: 'INT'
+        size: 6
+      - name: Accept number
+        type: 'INT'
+        size: 6
+      - name: Under number
+        type: 'INT'
+        size: 6
+      - name: Lo-Lo number
+        type: 'INT'
+        size: 6
+      - name: Pass number
+        type: 'INT'
+        size: 6
+      - name: Metal number
+        type: 'INT'
+        size: 6
+      - name: Abnormal number
+        type: 'INT'
+        size: 6
+      - name: External number
+        type: 'INT'
+        size: 6
+      - name: Ex.Metal number
+        type: 'INT'
+        size: 6
+      - name: Total number
+        type: 'INT'
+        size: 6
+      - name: T1-T2 number
+        type: 'INT'
+        size: 6
+      - name: Lo-Limit3 number
+        type: 'INT'
+        size: 6
+      - name: Limit3-2 number
+        type: 'INT'
+        size: 6
+      - name: Limit2-hi number
+        type: 'INT'
+        size: 6
+    2:
+      - name: Average weight of pass products
+        type: 'INT'
+        size: 5
+      - name: Standard deviation of pass products
+        type: 'INT'
+        size: 5
+      - name: Total weight of pass products
+        type: 'INT'
+        size: 11
+      - name: Max. weight of pass products
+        type: 'INT'
+        size: 5
+      - name: Min. weight of pass products
+        type: 'INT'
+        size: 5
+      - name: Range of pass products
+        type: 'INT'
+        size: 5
+      - name: Total weight of all products
+        type: 'INT'
+        size: 11
+      - name: Nominal weight
+        type: 'INT'
+        size: 6
+      - name: Shift weight
+        type: 'INT'
+        size: 6
+      - name: T1
+        type: 'INT'
+        size: 6
+      - name: T2
+        type: 'INT'
+        size: 6
+      - name: Nominal speed
+        type: 'INT'
+        size: 4
+      - name: CP
+        type: 'INT'
+        size: 4
+      - name: CPK
+        type: 'INT'
+        size: 4
+      - name: Histogram degree preset value
+        type: 'INT'
+        size: 4
+      - name: 'Histogram #01'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #02'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #03'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #04'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #05'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #06'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #07'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #08'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #09'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #10'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #11'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #12'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #13'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #14'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #15'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #16'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #17'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #18'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #19'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #20'
+        type: 'INT'
+        size: 6
+      - name: 'Histogram #21'
+        type: 'INT'
+        size: 6
