@@ -16,13 +16,6 @@ import yaml
 import sys
 import os
 
-
-#logging.basicConfig(level=os.environ.get("LOGLEVEL", "DEBUG"))
-logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
-
-log = logging.getLogger(__name__)
-
-
 class Checkweigher:
 
     def __init__(self, host, port, retry_attempts=5, config_file='{}/configs/checkweigher.yaml'.format(os.path.join(os.path.dirname(__file__)))):
@@ -34,7 +27,7 @@ class Checkweigher:
         self.config_file = config_file
 
         if not os.path.exists(self.config_file):
-            log.error('Config file does not exist...')
+            logging.error('Config file does not exist...')
             sys.exit()
 
     """
@@ -44,7 +37,7 @@ class Checkweigher:
     def connect(self, attempt=0):
 
         if attempt >= self.retryAttempts:
-            log.error(f'Failed to create socket after {self.retryAttempts} attempts')
+            logging.error(f'Failed to create socket after {self.retryAttempts} attempts')
             sys.exit()
 
         else:
@@ -53,25 +46,25 @@ class Checkweigher:
                 # create an INET, STREAMing socket (IPv4, TCP/IP)
                 self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             except socket.error:
-                log.error('Failed to create socket')
+                logging.error('Failed to create socket')
                 sys.exit()
 
             try:
                 # Connect the socket object to the checkweigher using IP address (string) and port (int)
                 self.client.connect((self.host, self.port))
-                log.info('Socket created to {} on port {}'.format(self.host, self.port))
+                logging.info('Socket created to {} on port {}'.format(self.host, self.port))
 
             except:
-                log.debug(f"Failed to connect try {attempt + 1}/{self.retryAttempts}...")
+                logging.debug(f"Failed to connect try {attempt + 1}/{self.retryAttempts}...")
                 self.connect(attempt + 1)
 
     def disconnect(self):
-        log.info("Closing connection")
+        logging.info("Closing connection")
         if self.client:
             self.client.close()
             self.client = None
         else:
-            log.info('No connection to close')
+            logging.info('No connection to close')
 
     """
     Command methods
@@ -79,14 +72,14 @@ class Checkweigher:
 
     def DC(self):
 
-        log.debug('Not tested (destructive command), but should work ')
+        logging.debug('Not tested (destructive command), but should work ')
         sys.exit()
 
         if not self.client:
             self.connect()
 
         if self.__command('DC'):
-            log.info('Data cleared')
+            logging.info('Data cleared')
             return
 
     def DS(self):
@@ -99,7 +92,7 @@ class Checkweigher:
 
     def DT(self):
 
-        log.debug('Not tested (destructive command), but should work ')
+        logging.debug('Not tested (destructive command), but should work ')
         sys.exit()
 
         if not self.client:
@@ -117,7 +110,7 @@ class Checkweigher:
             return self.__fivehundredData()
 
     def PN(self):
-        log.debug('Not implemented')
+        logging.debug('Not implemented')
         sys.exit()
 
         if not self.client:
@@ -130,23 +123,23 @@ class Checkweigher:
     def __command(self, command='DS'):
 
         if command not in ['DC', 'DS', 'DT', 'AS', 'PN']:
-            log.error('Error: Command not valid')
+            logging.error('Error: Command not valid')
             sys.exit()
 
         # Convert the command string to hex
         cmd_hex = command.encode('utf-8').hex()
 
-        log.debug("Command 1")
+        logging.debug("Command 1")
 
         tx = bytes.fromhex('435705')
         xrx = bytes.fromhex('43571030')
 
         if not self.__foo(tx, 4, xrx):
-            log.error("BCC failed")
+            logging.error("BCC failed")
             # ???
             return False
 
-        log.debug('Command 2')
+        logging.debug('Command 2')
 
         tx = bytes.fromhex('435702{}3003{}'.format(cmd_hex, self.__bcc(bytes.fromhex('{}3003'.format(cmd_hex))).hex()))
 
@@ -154,18 +147,18 @@ class Checkweigher:
 
         if self.__foo(tx, 4, xrx):
 
-            log.debug("Command 3")
+            logging.debug("Command 3")
 
             tx = bytes.fromhex('435704')
 
             xrx = bytes.fromhex('435705')
 
             if not self.__foo(tx, 3, xrx):
-                log.error("BCC failed")
+                logging.error("BCC failed")
                 sys.exit()
 
             else:
-                log.debug("command 3 sucessfull")
+                logging.debug("command 3 sucessfull")
                 return True
 
     """
@@ -178,7 +171,7 @@ class Checkweigher:
 
         if not (isinstance(data_number, int) and data_number in set([1, 2])):
 
-            log.error("Not a valid data number...")
+            logging.error("Not a valid data number...")
 
         else:
 
@@ -190,7 +183,7 @@ class Checkweigher:
                 pointer = 0
 
                 for i in items:
-                    log.debug('{} - {}:{}'.format(i['name'], pointer, i['size']))
+                    logging.debug('{} - {}:{}'.format(i['name'], pointer, i['size']))
 
                     d[i['name']] = data[pointer:i['size'] + pointer].decode()
 
@@ -215,15 +208,15 @@ class Checkweigher:
     def __foo(self, tx, byte_size, xrx=None):
         # TODO name this method
 
-        log.debug('=============================')
-        log.debug("sending: ")
+        logging.debug('=============================')
+        logging.debug("sending: ")
 
         try:
 
             self.client.send(tx)
             rx = self.client.recv(byte_size)
 
-            log.debug("received {}".format(rx.decode('ascii')))
+            logging.debug("received {}".format(rx.decode('ascii')))
 
             if not xrx:
                 return rx
@@ -237,14 +230,14 @@ class Checkweigher:
                 else:
 
                     if rx == bytes.fromhex('43571004'):  # DLEEOT
-                        log.error('DLEEOT')
+                        logging.error('DLEEOT')
                     elif rx == bytes.fromhex('435715'):  # NAK
-                        log.error('NAK')
+                        logging.error('NAK')
 
                     return False
 
         except socket.error:
-            log.error('Failed to send data.')
+            logging.error('Failed to send data.')
             self.disconnect()
             sys.exit()
 
@@ -252,7 +245,7 @@ class Checkweigher:
     try:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     except socket.error:
-        log.error('Failed to create socket')
+        logging.error('Failed to create socket')
         sys.exit()
 
     """
@@ -265,8 +258,8 @@ class Checkweigher:
 
         d = dict()
 
-        log.info("requesting totals")
-        log.debug("response 1")
+        logging.info("requesting totals")
+        logging.debug("response 1")
 
         tx = bytes.fromhex('43571030')
 
@@ -274,17 +267,17 @@ class Checkweigher:
 
         # Check the bcc
         if (res[-1:] == self.__bcc(res[3:-1])):
-            log.debug("bcc passed ! ")
+            logging.debug("bcc passed ! ")
 
             data = res[6:-2]
 
             d[1] = self.__parseTotalData(data, 1)
 
         else:
-            log.error("BCC failed")
+            logging.error("BCC failed")
             sys.exit()
 
-        log.debug("response 2")
+        logging.debug("response 2")
 
         tx = bytes.fromhex('43571031')
 
@@ -292,14 +285,14 @@ class Checkweigher:
 
         # Check the bcc
         if (res[-1:] == self.__bcc(res[3:-1])):
-            log.debug("bcc passed ! ")
+            logging.debug("bcc passed ! ")
 
             data = res[6:-2]
 
             d[2] = self.__parseTotalData(data, 2)
 
         else:
-            log.error("BCC failed")
+            logging.error("BCC failed")
             sys.exit()
 
         # Merge data 1 & 2
@@ -311,10 +304,10 @@ class Checkweigher:
 
         d = dict()
 
-        log.debug("response 1 ... 20")
+        logging.debug("response 1 ... 20")
 
         for x in range(20):
-            log.debug(x)
+            logging.debug(x)
 
             tx = bytes.fromhex('43571030')
 
@@ -322,14 +315,14 @@ class Checkweigher:
 
             # Check the bcc
             if (res[-1:] == self.__bcc(res[3:-1])):
-                log.debug("bcc passed ! ")
+                logging.debug("bcc passed ! ")
 
                 data = res[6:-2]
 
                 d[len(d)] = list(self.__parseFivehundredData(data))
 
             else:
-                log.error("BCC failed")
+                logging.error("BCC failed")
                 exit()
 
         return d
@@ -342,7 +335,7 @@ class Checkweigher:
         """
 
         if not isinstance(packet, bytes):
-            log.error("requires a bytes value")
+            logging.error("requires a bytes value")
             return False
 
         else:
