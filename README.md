@@ -81,13 +81,13 @@ show this help message and exit
 
 ### CLI
 ```
-python checkweigher.py 192.168.1.123 -p 1234 -c AS
+python yamatocheckweigher.py 192.168.1.123 -p 1234 -c AS
 ```
 
 ### Module
 
 ```python
-from checkweigher.checkweigher import Checkweigher
+from yamatocheckweigher.yamatocheckweigher import Checkweigher
 
 cw = Checkweigher('127.0.0.1', 1234)
 

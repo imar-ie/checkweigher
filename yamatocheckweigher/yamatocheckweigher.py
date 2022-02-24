@@ -18,7 +18,7 @@ import os
 
 class Checkweigher:
 
-    def __init__(self, host, port, retry_attempts=5, config_file='{}/configs/checkweigher.yaml'.format(os.path.join(os.path.dirname(__file__)))):
+    def __init__(self, host, port, retry_attempts=5, config_file='{}/configs/yamatocheckweigher.yaml'.format(os.path.join(os.path.dirname(__file__)))):
 
         self.host = host
         self.port = port
@@ -50,7 +50,7 @@ class Checkweigher:
                 sys.exit()
 
             try:
-                # Connect the socket object to the checkweigher using IP address (string) and port (int)
+                # Connect the socket object to the yamatocheckweigher using IP address (string) and port (int)
                 self.client.connect((self.host, self.port))
                 logging.info('Socket created to {} on port {}'.format(self.host, self.port))
 
