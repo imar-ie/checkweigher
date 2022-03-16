@@ -18,7 +18,7 @@ import os
 
 class Checkweigher:
 
-    def __init__(self, host, port, retry_attempts=5, config_file='{}/configs/yamatocheckweigher.yaml'.format(os.path.join(os.path.dirname(__file__)))):
+    def __init__(self, host, port, config_file, retry_attempts=5):
 
         self.host = host
         self.port = port
@@ -360,6 +360,7 @@ if __name__ == "__main__":
     parser.add_argument("ip", help="Device IP address")
     parser.add_argument("-p", "--port", action="store", dest="port", type=int, help="Device port", default=1001)
     parser.add_argument("-c", "--command", choices=['DC', 'DS', 'DT', 'AS'], help='Command', default="DS")
+    parser.add_argument("-cf", "--config", help=" configuration location", default='{}/configs/yamatocheckweigher.yaml'.format(os.path.join(os.path.dirname(__file__))))
 
     # Specify output of "--version"
     parser.add_argument("-v", "--version", action="version",
@@ -368,7 +369,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # New Checkweigher
-    cw = Checkweigher(args.ip, args.port)
+    cw = Checkweigher(args.ip, args.port, args.config)
 
     # Handle Command
     if args.command == 'DC':
