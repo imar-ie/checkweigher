@@ -51,7 +51,7 @@ pip install pyyaml
 Can be used via the command line or as a module, options are the same for both 
 
 ```
-checkweigher.py [-h] [-p PORT] [-cf] [-c {DC,DS,DT,AS}] [-v] ip
+yamatocheckweigher.py [-h] [-p PORT] [-cf] [-c {DC,DS,DT,AS}] [-v] ip
 ```
 
 ### Positional/Required arguments:
