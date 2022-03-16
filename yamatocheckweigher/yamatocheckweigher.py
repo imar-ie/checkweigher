@@ -134,7 +134,7 @@ class Checkweigher:
         tx = bytes.fromhex('435705')
         xrx = bytes.fromhex('43571030')
 
-        if not self.__foo(tx, 4, xrx):
+        if not self.__txrxckrt(tx, 4, xrx):
             logging.error("BCC failed")
             # ???
             return False
@@ -145,7 +145,7 @@ class Checkweigher:
 
         xrx = bytes.fromhex('43571031')
 
-        if self.__foo(tx, 4, xrx):
+        if self.__txrxckrt(tx, 4, xrx):
 
             logging.debug("Command 3")
 
@@ -153,7 +153,7 @@ class Checkweigher:
 
             xrx = bytes.fromhex('435705')
 
-            if not self.__foo(tx, 3, xrx):
+            if not self.__txrxckrt(tx, 3, xrx):
                 logging.error("BCC failed")
                 sys.exit()
 
@@ -205,8 +205,11 @@ class Checkweigher:
 
             yield p
 
-    def __foo(self, tx, byte_size, xrx=None):
-        # TODO name this method
+    """
+    main transmit method - tx rx check return
+    """
+    def __txrxckrt(self, tx, byte_size, xrx=None):
+
 
         logging.debug('=============================')
         logging.debug("sending: ")
@@ -263,7 +266,7 @@ class Checkweigher:
 
         tx = bytes.fromhex('43571030')
 
-        res = self.__foo(tx, 164)
+        res = self.__txrxckrt(tx, 164)
 
         # Check the bcc
         if (res[-1:] == self.__bcc(res[3:-1])):
@@ -281,7 +284,7 @@ class Checkweigher:
 
         tx = bytes.fromhex('43571031')
 
-        res = self.__foo(tx, 220)
+        res = self.__txrxckrt(tx, 220)
 
         # Check the bcc
         if (res[-1:] == self.__bcc(res[3:-1])):
@@ -311,7 +314,7 @@ class Checkweigher:
 
             tx = bytes.fromhex('43571030')
 
-            res = self.__foo(tx, 187)
+            res = self.__txrxckrt(tx, 187)
 
             # Check the bcc
             if (res[-1:] == self.__bcc(res[3:-1])):
