@@ -51,7 +51,7 @@ pip install pyyaml
 Can be used via the command line or as a module, options are the same for both 
 
 ```
-checkweigher.py [-h] [-p PORT] [-c {DC,DS,DT,AS}] [-v] ip
+yamatocheckweigher.py [-h] [-p PORT] [-cf] [-c {DC,DS,DT,AS}] [-v] ip
 ```
 
 ### Positional/Required arguments:
@@ -71,6 +71,10 @@ Command to be issued
 Options: {DC,DS,DT,AS}    
 Default: ***DS***    
 
+#### -cf, --config
+Config file to be used
+Default: ***./configs/yamatocheckweigher.yaml***    
+
 ####  -v, --version
 show program's version number and exit
 
@@ -89,7 +93,7 @@ python yamatocheckweigher.py 192.168.1.123 -p 1234 -c AS
 ```python
 from yamatocheckweigher.yamatocheckweigher import Checkweigher
 
-cw = Checkweigher('127.0.0.1', 1234)
+cw = Checkweigher('127.0.0.1', 1234, 'config.yaml')
 
 cw.connect()
 
